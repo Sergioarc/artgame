@@ -5,13 +5,14 @@ var Nivel1 = function () {
 	this.player = null;
 	this.cursors = null;
 	this.sky = null;
+	this.pisos = null;
 };
 
 Nivel1.prototype = {
 
 	init: function(){
 		this.game.renderer.renderSession.soundPixels = true;
-		this.world.resize(3000, 600);
+		this.world.resize(3000, 550);
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.physics.arcade.gravity.y = 750;
 	},
@@ -19,11 +20,12 @@ Nivel1.prototype = {
 	preload: function() {
 		this.load.image('ciudad', 'assets/ciudad.png');
 		this.load.image('escultura','assets/e1.png');
+		this.load.image('piso','assets/platform.png')
 		this.load.spritesheet('regio','assets/dude.png',32,48);
 	},
 
 	create: function() {
-		this.sky = this.add.tileSprite(0,0,2999,600, 'ciudad');
+		this.sky = this.add.tileSprite(0,0,4000,500, 'ciudad');
 		this.sky.fixedToCamera = false;
 		this.player = this.add.sprite(32,game.world.height - 150, 'regio');
 		this.physics.arcade.enable(this.player); //Ponemos disponible al jugador 'dude' para que use la libreria de physics
@@ -35,10 +37,23 @@ Nivel1.prototype = {
         this.camera.follow(this.player);
 		this.cursors = game.input.keyboard.createCursorKeys();
 
+		//Crear pisos
+		var posicionPiso = 0;
+		this.pisos = this.add.physicsGroup();
+		for(var j = 0; j< 269; j++){
+			var piso = this.pisos.create(0+posicionPiso, 550-32,'piso');
+			posicionPiso += 400;
+		}
+
+		this.pisos.setAll('body.allowGravity', false);
+        this.pisos.setAll('body.immovable',true);
+
 	},
 
 	update: function(){
 		this.sky.tilePosition.x = (this.camera.x*.3); //Le damos el efecto de que pareciera que el background se mueve al compas del jugador
+
+		this.physics.arcade.collide(this.player,this.pisos);
 
 		//  Reset the players velocity (movement)
     	this.player.body.velocity.x = 0;
@@ -63,7 +78,10 @@ Nivel1.prototype = {
     	if (this.cursors.up.isDown ){
         	this.player.body.velocity.y = -350;
     	}
+    	console.log(this.player.x);
     }
+
+
 	
 };
 
