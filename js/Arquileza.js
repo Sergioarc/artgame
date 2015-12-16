@@ -5,7 +5,8 @@ var Nivel1 = function () {
 	this.player = null;
 	this.sky = null;
 	this.pisos = null;
-	//this.corazones = null;
+	this.corazones = null;
+	this.platforms = null;
 	this.corazon1 = null;
 	this.corazon2 = null;
 	this.corazon3 = null;
@@ -32,17 +33,39 @@ Nivel1.prototype = {
 		this.load.image('piso','assets/platform.png');
 		this.load.image('corazon','assets/corazon.png');
 		this.load.image('enemigo','assets/e1.png');
+		this.load.image('ice-platform','assets/ice-platform.png');
+		this.load.image('normal-platform','assets/floor(120x16).png');
+		this.load.image('trees','assets/trees.png');
+		
 		this.load.spritesheet('regio','assets/dude.png',32,48);
 	},
 
 	create: function() {
 		this.sky = this.add.tileSprite(0,0,4000,500, 'ciudad');
 		this.sky.fixedToCamera = false;
+		
+		//Agregamos los arboles 
+		this.add.sprite(0,440,'trees');
+		this.add.sprite(1100,440,'trees');
+		this.add.sprite(2600,440,'trees');
+
 		this.player = this.add.sprite(32,game.world.height - 150, 'regio');
 		this.physics.arcade.enable(this.player); //Ponemos disponible al jugador 'dude' para que use la libreria de physics
 		this.player.body.collideWorldBounds = true; //Asignamos coliciones con los objetos que pongamos del mundo
 		this.player.animations.add('left',[0,1,2,3],10,true);
 		this.player.animations.add('right',[5,6,7,8],10,true);
+
+		//Creamos las plataformas
+		this.platforms = this.add.physicsGroup();
+		this.platform1 = this.platforms.create(800,440,'normal-platform');
+		this.platform2 = this.platforms.create(2300,440,'ice-platform');
+
+		this.platform1.body.velocity.x = 50;
+		this.platform2.body.velocity.x = 50;
+
+		this.platforms.setAll('body.allowGravity',false);
+		this.platforms.setAll('body.immovable',true);
+
 
 		//Hacemos que la camara siga el movimiento del jugador
         this.camera.follow(this.player);
@@ -55,9 +78,13 @@ Nivel1.prototype = {
 		//Crear piso
 		var posicionPiso = 0;
 		this.pisos = this.add.physicsGroup();
-		for(var j = 0; j< 269; j++){
-			var piso = this.pisos.create(0+posicionPiso, 550-32,'piso');
-			posicionPiso += 400;
+		for(var j = 0; j< 8; j++){
+			if(j === 2 || j === 6){
+				posicionPiso += 300;
+			}else{
+				var piso = this.pisos.create(0+posicionPiso, 550-32,'piso');
+				posicionPiso += 400;
+			}
 		}
 
 		//crear corazones
@@ -68,9 +95,9 @@ Nivel1.prototype = {
 		for (var i = 0; i < 3; i++) {
 			if(i === 0)
 				this.corazon1 = this.corazones.create(730+posicionCora,10,'corazon');
-			if(i <= 1)
+			if(i === 1)
 				this.corazon2 = this.corazones.create(730+posicionCora,10,'corazon');
-			if(i <= 2)
+			if(i === 2)
 				this.corazon3 = this.corazones.create(730+posicionCora,10,'corazon');
 			posicionCora += 45;
 			vidasCount += 1;	
@@ -93,24 +120,54 @@ Nivel1.prototype = {
 	collectVida: function(player, enemigos){
     	console.log("Hola");
     	this.vidas -= 1;
-    	if(this.vidas == 2){
+    	if(this.vidas == 1){
     		this.corazon1.destroy();
     	}
-    	if(this.vidad == 1){
+    	if(this.vidas == -1 ){
     		this.corazon2.destroy();
     	}
+    	if(this.vidas == -3){
+    		this.corazon3.destroy();
+    	}
     	console.log(this.vidas);
-
-    	//this.corazones.destroy();
     },
 
 	update: function(){
 		this.physics.arcade.collide(this.player,this.pisos);
 		this.physics.arcade.collide(this.enemigos,this.pisos);
 		this.physics.arcade.collide(this.player,this.enemigos,this.collectVida,null,this);
-
+		this.physics.arcade.collide(this.player,this.platforms)
 		var standing = this.player.body.blocked.down || this.player.body.touching;
 		var viendo;
+		
+		//console.log("Plat: " + this.platform1.x)
+		if(this.platform1.x > 1000){
+			//console.log("Plat1: " + this.platform1.body.velocity.x)
+			this.platform1.body.velocity.x *= -1
+			//console.log("Plat2: " + this.platform1.body.velocity.x)
+			this.platform1.x -= 1;
+		}
+		if(this.platform1.x < 800){
+			//console.log("Plat1: " + this.platform1.body.velocity.x)
+			this.platform1.body.velocity.x *= -1
+			//console.log("Plat2: " + this.platform1.body.velocity.x)
+			this.platform1.x += 1;
+		}
+
+
+		//console.log("Plat: " + this.platform1.x)
+		if(this.platform2.x > 2500){
+			//console.log("Plat1: " + this.platform1.body.velocity.x)
+			this.platform2.body.velocity.x *= -1
+			//console.log("Plat2: " + this.platform1.body.velocity.x)
+			this.platform2.x -= 1;
+		}
+		if(this.platform2.x < 2300){
+			//console.log("Plat1: " + this.platform1.body.velocity.x)
+			this.platform2.body.velocity.x *= -1
+			//console.log("Plat2: " + this.platform1.body.velocity.x)
+			this.platform2.x += 1;
+		}
 
 		//console.log(this.player.x);
 		//  Reset the players velocity (movement)
@@ -119,7 +176,7 @@ Nivel1.prototype = {
     	if(leftKey.isDown){
     		this.player.body.velocity.x = -250;
     		this.player.play('left');
-    		if(this.player.x < 2569 && this.player.x > 460){
+    		if(this.player.x < 2569 && this.corazon1.x > 730){
     			this.corazon1.x -=4.2;
     			this.corazon2.x -=4.2;
     			this.corazon3.x -=4.2;
@@ -130,10 +187,10 @@ Nivel1.prototype = {
     	}else if (right.isDown){
     		this.player.body.velocity.x = 250;
     		this.player.play('right');
-    		if(this.player.x > 900/2 && this.corazones.x < 2100){
+    		if(this.player.x > 900/2 && this.corazon3.x < 2920){
     			this.corazon1.x += 4.2;
-    			this.corazon2.x +=4.2;
-    			this.corazon3.x +=4.2;
+    			this.corazon2.x += 4.2;
+    			this.corazon3.x += 4.2;
     		}
     		if(this.viendo !== 'right'){
     			this.viendo = 'right';
@@ -148,7 +205,7 @@ Nivel1.prototype = {
     		this.edgeTimer = this.time.time +250;
 
     	if((standing || this.time.time <= this.edgeTimer) && upKey.isDown && this.time.time > this.jumpTimer){
-    		this.player.body.velocity.y = -500;
+    		this.player.body.velocity.y = -380;
     		this.jumpTimer = this.time.time +750;
     		
     	}
