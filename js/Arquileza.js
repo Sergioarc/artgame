@@ -1,5 +1,10 @@
 
 var score = 0;
+var arquileza1 = false;
+var arquileza2 = false;
+var arquileza3 = false;
+var arquileza4 = false;
+var arquileza5 = false;
 
 var Nivel1 = function () {
 	this.platform = null;
@@ -65,6 +70,7 @@ Nivel1.prototype = {
 		obra = this.obras.create(2450,300,'arqui2');
 		obra = this.obras.create(1970,311,'arqui3' );
 		obra = this.obras.create(492,263,'arqui4');
+		obra = this.obras.create(2699,350,'arqui5');
 		this.obras.setAll('body.allowGravity', false);
 		this.obras.setAll('body.immovable',true);
 
@@ -110,7 +116,7 @@ Nivel1.prototype = {
 
 		//Agrego el objeto fin
 		this.bandera = this.add.physicsGroup();
-		var bandera = this.bandera.create(2900,418,'puerta');
+		var bandera = this.bandera.create(2900,422,'puerta');
 		this.bandera.setAll('body.allowGravity',false);
 		this.bandera.setAll('body.immovable',true);
 
@@ -209,7 +215,9 @@ Nivel1.prototype = {
 
     finJuego: function(player, bandera){
     	//window.location ="http://www.google.com";
-    	
+    	console.log(player.x)
+    	if(player.x > 2920)
+    		this.state.start('GameWin');
     },
 
 	update: function(){
@@ -257,11 +265,11 @@ Nivel1.prototype = {
 		//  Reset the players velocity (movement)
     	this.player.body.velocity.x = 0;
 
-    	console.log("x: " + this.player.x + " y: " + this.player.y);
+    	//console.log("x: " + this.player.x + " y: " + this.player.y);
     	//Reiniciar el juego si se cae en un precipicio
     	if(this.player.x > 800 && this.player.x < 1000 && this.player.y > 500 || this.player.x > 2320 && this.player.x < 2570 && this.player.y > 500 ){
     		this.player.destroy();
-    		game.state.start('Nivel1');
+    		this.state.start('Nivel1');
     	}
 
 
@@ -273,6 +281,7 @@ Nivel1.prototype = {
     			this.corazon1.x -=4.2;
     			this.corazon2.x -=4.2;
     			this.corazon3.x -=4.2;
+    			this.scoreText.x -=4.2;
     		}
     		if(this.viendo !== 'left'){
     			this.viendo = 'left';
@@ -284,6 +293,7 @@ Nivel1.prototype = {
     			this.corazon1.x += 4.2;
     			this.corazon2.x += 4.2;
     			this.corazon3.x += 4.2;
+    			this.scoreText.x += 4.2;
     		}
     		if(this.viendo !== 'right'){
     			this.viendo = 'right';
