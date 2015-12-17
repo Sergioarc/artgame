@@ -1,4 +1,5 @@
 
+var score = 0;
 
 var Nivel1 = function () {
 	this.platform = null;
@@ -6,6 +7,7 @@ var Nivel1 = function () {
 	this.sky = null;
 	this.pisos = null;
 	this.corazones = null;
+	this.obras = null;
 	this.platforms = null;
 	this.corazon1 = null;
 	this.corazon2 = null;
@@ -16,6 +18,8 @@ var Nivel1 = function () {
 	this.jumpTimer = 0;
 	this.vidas = 3;
 	this.enemigos = null;
+	this.bloques = null;
+	this.bandera = null;
 };
 
 Nivel1.prototype = {
@@ -29,14 +33,19 @@ Nivel1.prototype = {
 
 	preload: function() {
 		this.load.image('ciudad', 'assets/ciudad.png');
-		this.load.image('escultura','assets/e1.png');
 		this.load.image('piso','assets/platform.png');
 		this.load.image('corazon','assets/corazon.png');
 		this.load.image('enemigo','assets/e1.png');
 		this.load.image('ice-platform','assets/ice-platform.png');
 		this.load.image('normal-platform','assets/floor(120x16).png');
 		this.load.image('trees','assets/trees.png');
-		
+		this.load.image('arqui1','assets/Arquileza/arqui1.png');
+		this.load.image('arqui2','assets/Arquileza/arqui2.png');
+		this.load.image('arqui3','assets/Arquileza/arqui3.png');
+		this.load.image('arqui4','assets/Arquileza/arqui4.png');
+		this.load.image('arqui5','assets/Arquileza/arqui5.png');
+		this.load.image('bloque1','assets/block4(16x16).png')
+		this.load.image('puerta','assets/door.png');
 		this.load.spritesheet('regio','assets/dude.png',32,48);
 	},
 
@@ -48,6 +57,62 @@ Nivel1.prototype = {
 		this.add.sprite(0,440,'trees');
 		this.add.sprite(1100,440,'trees');
 		this.add.sprite(2600,440,'trees');
+
+		//Agregamos las obras de arte
+		this.obras = this.add.physicsGroup();
+		this.obras.enableBody = true;
+		var obra = this.obras.create(920,300,'arqui1');
+		obra = this.obras.create(2450,300,'arqui2');
+		obra = this.obras.create(1970,311,'arqui3' );
+		obra = this.obras.create(492,263,'arqui4');
+		this.obras.setAll('body.allowGravity', false);
+		this.obras.setAll('body.immovable',true);
+
+		//Agregamos bloques
+		this.bloques = this.add.physicsGroup();
+		var bloque = this.bloques.create(1734,503,'bloque1');
+		bloque = this.bloques.create(1734,487,'bloque1');
+		bloque = this.bloques.create(1734,471,'bloque1');
+		bloque = this.bloques.create(1734,455,'bloque1');
+		bloque = this.bloques.create(1734,439,'bloque1');
+
+		bloque = this.bloques.create(2134,503,'bloque1');
+		bloque = this.bloques.create(2134,487,'bloque1');
+		bloque = this.bloques.create(2134,471,'bloque1');
+		bloque = this.bloques.create(2134,455,'bloque1');
+		bloque = this.bloques.create(2134,439,'bloque1');
+		
+		bloque = this.bloques.create(1862,375,'bloque1');
+		bloque = this.bloques.create(1830,391,'bloque1');
+		bloque = this.bloques.create(1798,407,'bloque1');
+		bloque = this.bloques.create(1766,423,'bloque1');
+
+
+		bloque = this.bloques.create(400,503,'bloque1');
+		bloque = this.bloques.create(400,487,'bloque1');
+		bloque = this.bloques.create(400,471,'bloque1');
+		bloque = this.bloques.create(400,455,'bloque1');
+		bloque = this.bloques.create(400,439,'bloque1');
+
+		bloque = this.bloques.create(600,503,'bloque1');
+		bloque = this.bloques.create(600,487,'bloque1');
+		bloque = this.bloques.create(600,471,'bloque1');
+		bloque = this.bloques.create(600,455,'bloque1');
+		bloque = this.bloques.create(600,439,'bloque1');
+
+		bloque = this.bloques.create(500,423,'bloque1');
+		bloque = this.bloques.create(450,391,'bloque1');
+		bloque = this.bloques.create(550,391,'bloque1');
+		bloque = this.bloques.create(500,359,'bloque1');
+
+		this.bloques.setAll('body.allowGravity',false);
+		this.bloques.setAll('body.immovable',true);
+
+		//Agrego el objeto fin
+		this.bandera = this.add.physicsGroup();
+		var bandera = this.bandera.create(2900,418,'puerta');
+		this.bandera.setAll('body.allowGravity',false);
+		this.bandera.setAll('body.immovable',true);
 
 		this.player = this.add.sprite(32,game.world.height - 150, 'regio');
 		this.physics.arcade.enable(this.player); //Ponemos disponible al jugador 'dude' para que use la libreria de physics
@@ -107,13 +172,17 @@ Nivel1.prototype = {
 		//crear enemigos
 		this.enemigos = this.add.physicsGroup();
 		this.enemigos.enableBody = true;
-		var enemigo = this.enemigos.create(100,game.world.height - (64+32),'enemigo');
+		//var enemigo = this.enemigos.create(100,game.world.height - (64+32),'enemigo');
 
 		this.pisos.setAll('body.allowGravity', false);
         this.pisos.setAll('body.immovable',true);
         this.corazones.setAll('body.allowGravity', false);
         this.enemigos.setAll('body.allowGravity',false);
         this.enemigos.setAll('body.immovable',true);
+
+        this.scoreText = game.add.text(12,12,'Obras: 0',{fontSize: '30px', fill: '#C66E4E'})
+
+
 
 	},
 
@@ -132,11 +201,26 @@ Nivel1.prototype = {
     	console.log(this.vidas);
     },
 
+    collectObras: function(player, obras){
+    	obras.kill();
+    	score += 1;
+    	this.scoreText.text = 'Obras: ' + score;
+    },
+
+    finJuego: function(player, bandera){
+    	//window.location ="http://www.google.com";
+    	
+    },
+
 	update: function(){
 		this.physics.arcade.collide(this.player,this.pisos);
 		this.physics.arcade.collide(this.enemigos,this.pisos);
 		this.physics.arcade.collide(this.player,this.enemigos,this.collectVida,null,this);
 		this.physics.arcade.collide(this.player,this.platforms)
+		this.physics.arcade.collide(this.player, this.bloques)
+		this.physics.arcade.overlap(this.player,this.obras,this.collectObras, null, this);
+		this.physics.arcade.overlap(this.player,this.bandera,this.finJuego,null,this);
+
 		var standing = this.player.body.blocked.down || this.player.body.touching;
 		var viendo;
 		
@@ -173,6 +257,15 @@ Nivel1.prototype = {
 		//  Reset the players velocity (movement)
     	this.player.body.velocity.x = 0;
 
+    	console.log("x: " + this.player.x + " y: " + this.player.y);
+    	//Reiniciar el juego si se cae en un precipicio
+    	if(this.player.x > 800 && this.player.x < 1000 && this.player.y > 500 || this.player.x > 2320 && this.player.x < 2570 && this.player.y > 500 ){
+    		this.player.destroy();
+    		game.state.start('Nivel1');
+    	}
+
+
+    	//Movimiento  del jugador con el teclado
     	if(leftKey.isDown){
     		this.player.body.velocity.x = -250;
     		this.player.play('left');
@@ -214,33 +307,3 @@ Nivel1.prototype = {
     }
 	
 };
-
-
-/*
-function update() {
-	game.physics.arcade.collide(player,platform);
-	game.physics.arcade.collide(escultura,platform);
-
-	game.physics.arcade.overlap(player,escultura,collectEsc,null,this);
-
-	player.body.velocity.x = 0;
-
-	if(cursors.left.isDown){
-		player.body.velocity.x = -150;
-		player.animations.play('left');
-	}else if(cursors.right.isDown){
-		player.body.velocity.x = 150;
-		player.animations.play('right')
-	}else{
-		player.animations.stop();
-		player.frame = 4;
-	}
-
-	if(cursors.up.isDown && player.body.touching.down){
-		player.body.velocity.y = -350;
-	}
-}
-
-function collectEsc(player,escultura){
-	escultura.kill();
-}*/
