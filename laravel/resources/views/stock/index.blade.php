@@ -27,16 +27,9 @@
                 </td>
                 <td>
                     Nivel 2<br>
-                    @if(\Auth::user()->level_unblocked == 0)
-                    <a href="{{action('LevelsController@create')}}">
+                    <a href="abrir-nivel">
                         {!!Html::image("img/welcome/03.jpg", null, ['class' => 'img-responsive','style' => 'opacity:0.1'])!!}
                     </a>              
-                    @else
-                    <a href="{{action('LevelsController@create')}}">
-                        {!!Html::image("img/welcome/03.jpg", null, ['class' => 'img-responsive'])!!}
-                    </a>
-                    @endif
-
                 </td>
                 <td>
                     Nivel 3<br>
