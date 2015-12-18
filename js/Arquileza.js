@@ -39,7 +39,6 @@ Nivel1.prototype = {
 		this.load.image('ciudad', 'assets/ciudad.png');
 		this.load.image('piso','assets/platform.png');
 		this.load.image('corazon','assets/corazon.png');
-		this.load.image('enemigo','assets/e1.png');
 		this.load.image('ice-platform','assets/ice-platform.png');
 		this.load.image('normal-platform','assets/floor(120x16).png');
 		this.load.image('trees','assets/trees.png');
