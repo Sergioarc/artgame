@@ -1,10 +1,10 @@
 
 var score = 0;
-var arquileza1 = false;
-var arquileza2 = false;
-var arquileza3 = false;
-var arquileza4 = false;
-var arquileza5 = false;
+var ecoambient1 = false;
+var ecoambient2 = false;
+var ecoambient3 = false;
+var ecoambient4 = false;
+var ecoambient5 = false;
 
 var Nivel2 = function () {
 	this.platform = null;

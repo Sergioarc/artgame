@@ -26,26 +26,26 @@ GameWin2.prototype ={
 		this.add.text(600,100, score.toString(), {font: "bold 30px snas-serif", fill: "#0000", align: "center" })
 
 		if(score === 1){
-			arquileza1 = true;
+			ecoambient1 = true;
 
 		}else if(score === 2){
-			arquileza1 = true;
-			arquileza2 = true;
+			ecoambient1 = true;
+			ecoambient2 = true;
 		}else if(score === 3){
-			arquileza1 = true;
-			arquileza2 = true;
-			arquileza3 = true;
+			ecoambient1 = true;
+			ecoambient2 = true;
+			ecoambient3 = true;
 		}else if(score === 4){
-			arquileza1 = true;
-			arquileza2 = true;
-			arquileza3 = true;
-			arquileza4 = true;
+			ecoambient1 = true;
+			ecoambient2 = true;
+			ecoambient3 = true;
+			ecoambient4 = true;
 		}else if(score === 5){
-			arquileza1 = true;
-			arquileza2 = true;
-			arquileza3 = true;
-			arquileza4 = true;
-			arquileza5 = true;
+			ecoambient1 = true;
+			ecoambient2 = true;
+			ecoambient3 = true;
+			ecoambient4 = true;
+			ecoambient5 = true;
 		}
 	},
 
