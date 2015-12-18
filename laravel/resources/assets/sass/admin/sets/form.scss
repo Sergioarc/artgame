@@ -1,0 +1,20 @@
+#btn-add-file {
+    min-height: 200px;
+    padding-top: 40%;
+    text-decoration: none;
+}
+
+.set-item-container {
+
+    > .thumbnail, &#btn-add-item{
+        min-height: 100px;
+        padding-top: 20%;
+        text-decoration: none;
+        text-align: center;
+    }
+    
+    .close {
+        padding-right: 7px;
+        padding-top: 4px;
+    }
+}

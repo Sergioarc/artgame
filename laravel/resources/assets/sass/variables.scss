@@ -1,0 +1,78 @@
+$body-bg :       #181818;
+$text-color:     #cdcdcd;
+$brand-primary : #debc5f;
+$brand-info    : #185690;
+$brand-warning : #e0931f;
+$brand-danger  : #bc1a1a;
+$headings-color : $brand-primary;
+$font-family-sans-serif : "Open Sans", Helvetica, Arial, sans-serif;
+
+// COMPONENT
+$nav-link-hover-bg : darken($brand-primary, 20%);
+$nav-link-hover-color: white;
+$state-info-bg       : darken($brand-info, 15%);
+$state-warning-bg    : darken($brand-warning, 7%);
+$state-danger-bg     : $brand-danger;
+$state-danger-text  : lighten($brand-danger, 50%);
+
+// TABLES
+$table-bg-accent : lighten($body-bg, 5%);
+$table-border-color : lighten($body-bg, 20%);
+
+// BUTTONS
+$btn-default-color : $brand-primary;
+$btn-default-bg    : #000;
+$btn-default-border : $brand-primary;
+
+//FORM
+$input-bg : lighten($body-bg, 10%);
+$input-color : ligthen($text-color, 5%);
+$input-border : darken($input-bg, 5%);
+$input-border-focus : $brand-primary;
+$input-bg-disabled : lighten($input-bg, 35%);
+$legend-color : darken($text-color, 5%);
+$legend-border-color : $brand-primary;
+
+// DROPDOWNS
+$dropdown-link-hover-bg : $brand-primary;
+$dropdown-link-hover-color : white;
+
+//NAVBAR
+$navbar-height: 100px;
+$navbar-default-color : #cdcdcd;
+$navbar-default-bg    : darken($body-bg, 10%);
+$navbar-default-link-color : #cdcdcd;
+$navbar-default-link-hover-color : white;
+$navbar-default-link-active-color : white;
+$navbar-img-height : $navbar-height - 20;
+
+// MODALS
+$modal-content-bg : #111;
+$modal-content-border-color : opacify($brand-primary, 0.2);
+$modal-content-fallback-border-color : darken($brand-primary, 50%);
+$modal-header-border-color : darken($brand-primary, 8%);
+
+//LIST GROUP
+$list-group-bg : #222;
+$list-group-border : darken($brand-primary, 8%);
+$list-group-hover-bg : darken($list-group-bg, 8%);
+$list-group-link-color : $text-color;
+$list-group-link-hover-color : $brand-primary;
+
+//PANELS
+$panel-bg : #222;
+$panel-default-border : darken($brand-primary, 8%);
+$panel-default-heading-bg : $panel-default-border;
+
+//BREADCRUMBS
+$breadcrumb-bg : lighten($body-bg, 10%);
+$breadcrumb-active-color : white;
+
+// CLOSE
+$close-color : #fff;
+$close-text-shadow : 0 1px 0 $brand-primary;
+
+
+// FONT AWESOME
+$fa-font-path : 'fonts';
+

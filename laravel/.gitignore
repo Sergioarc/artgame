@@ -1,8 +1,9 @@
-/bootstrap/compiled.php
 /vendor
-composer.phar
-composer.lock
-.env.*.php
-.env.php
+/node_modules
+Homestead.yaml
+.env
 .DS_Store
-Thumbs.db
+composer.lock
+composer.phar
+/public/system
+/public/css/app*

@@ -1,25 +1,26 @@
-## Laravel PHP Framework
+## Tienda en línea Noir
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+### Instalación
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+Después de descargar el proyecto con `git clone` se deben ejecutar los siguientes pasos:
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+* `composer install` (O `./composer.phar install` si usan composer localmente)
+* `cp .env.example .env`
+* `php artisan key:generate`
+* Editar el archivo `.env` para configurar la base de datos
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+### Overview de la tienda
 
-## Official Documentation
+La tienda en línea vendera *PIEZAS* (`ModelItem`). Cada pieza tiene posibles configuraciones de *TALLA* (`Size`) y *COLOR* (`Color`). 
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+Cada pieza pertence a un *MODELO* (`Model`). _Yo preferiría llamarlos categorías, pero el cliente así los nombró_. A su vez, un modelo pertenece a una *SUBCOLECCIÓN* (`Subcollection`) y ésta a su vez a una *COLECCIÓN* (`Collection`).
 
-### Contributing To Laravel
+Cada uno de los modelos descritos anteriormente posee un _*sku*_ de dos dígitos (A excepción de las piezas que tiene un caracter y dos dígitos). Así, formamos un _SKU_ para cada artículo vendido en la tienda (`Stock`). El sku ejemplo es *010345A890223*. Este SKU representa a la pieza _A89_ de la colección _01_, subcolección _03_, modelo _45_ de color _02_ y talla _23_.
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+Los artículos de la tienda no son listados como tal en las páginas de la tienda dado que, por ejemplo, un calzón no suele venderse solo, si no en conjunto con su Brassier. Es por ello que en la tienda se listan *CONJUNTOS* (`Set`). Cada conjunto tiene una o más *FOTOS* (`SetPhoto`). Al seleccionar un conjunto en la tienda deben cargarse todos las piezas que tiene y poder seleccionar la configuración de talla y color deseada.
 
-### License
+### TESTING
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Para generar una base de datos de colecciones, subcolecciones, modelos, piezas, colores, tallas y conjuntos existe el `FakeSeeder`.
+
+Para crear stock existe el `StockFakeSeeder`.

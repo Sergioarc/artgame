@@ -1,0 +1,117 @@
+@import "resources/assets/sass/variables";
+@import "node_modules/font-awesome/scss/font-awesome";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.nav {
+    > li {
+        > a {
+
+            color : $text-color;
+            &:hover,
+            &:focus {
+                color: $nav-link-hover-color;
+            }
+        }
+    }
+
+    .cart-link {
+        .fa.fa-shopping-cart {
+            margin-top: -15%
+        }
+        .badge {
+            position: absolute;
+            right: 12%;
+            top: 30%;
+            background-color: $brand-primary;
+        }
+    }
+}
+
+.nav-pills.collections-menu {
+    > li {
+        > a {
+            background-color : $brand-primary;
+            color : white;
+            margin : 3px 5px;
+            &:hover,
+            &:focus {
+                background-color: darken($brand-primary, 7%);
+            }
+        }
+    }
+}
+
+.navbar-brand {
+    > img {
+        margin-top : -$navbar-padding-vertical + 10;
+        max-height : $navbar-img-height;
+    }
+}
+
+.faq-group > .panel.panel-default {
+
+    border : none;
+
+    > .panel-heading {
+        background-color: $body-bg;
+        border : none;
+
+        .panel-title {
+            color : white;
+        }
+    }
+
+    .panel-body {
+        border-width:  2px;
+        background-color: lighten($body-bg, 10%);
+    }
+}
+
+.dropdown-menu {
+    min-width: 100%;
+    text-overflow: ellipsis;
+
+    &.transparent-bg {
+        margin-top: -5px;
+        background-color: transparent;
+        border : none;
+        box-shadow: none;
+
+        > li {
+            background-color: $gray-lighter;
+            margin: 5px 0;
+
+            > a {
+                color : $gray-darker;
+                font-weight: bold;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+                &:hover {
+                    box-shadow: 0 0px 15px white;
+                    color : $dropdown-link-hover-color;
+                }
+            }
+        }
+    }
+}
+
+$cols : xs sm md lg;
+.row.no-gutter {
+    margin-left : 0px;
+    margin-right: 0px;
+
+    @for $i from 1 through 12 {
+        @each $col in $cols {
+            .col-#{$col}-#{$i} {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+.up-down-margin {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

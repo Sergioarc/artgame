@@ -1,0 +1,16 @@
+#panels .panel .btn-group {
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+#panels .panel .panel-heading:hover .btn-group {
+  opacity: 1;
+}
+
+#panels .panel .list-group-item:hover .btn-group {
+  opacity: 1;
+}
