@@ -22,7 +22,6 @@ var Nivel1 = function () {
 	this.edgeTimer = 0;
 	this.jumpTimer = 0;
 	this.vidas = 3;
-	this.enemigos = null;
 	this.bloques = null;
 	this.bandera = null;
 };
@@ -51,6 +50,8 @@ Nivel1.prototype = {
 		this.load.image('arqui5','assets/Arquileza/arqui5.png');
 		this.load.image('bloque1','assets/block4(16x16).png')
 		this.load.image('puerta','assets/door.png');
+		this.load.image('bomba','assets/bomba(demo).png')
+		this.load.image('bomba1','assets/bomba1.png')
 		this.load.spritesheet('regio','assets/dude.png',32,48);
 	},
 
@@ -137,6 +138,14 @@ Nivel1.prototype = {
 		this.platforms.setAll('body.allowGravity',false);
 		this.platforms.setAll('body.immovable',true);
 
+		//Crear enemigos
+		this.enemigos = this.add.physicsGroup()
+		this.enemigo1 = this.enemigos.create(450,470,'bomba')
+		this.enemigo2 = this.enemigos.create(2850,470,'bomba')
+		this.enemigo1.body.velocity.x = 50;
+		this.enemigo2.body.velocity.x = 50;
+
+
 
 		//Hacemos que la camara siga el movimiento del jugador
         this.camera.follow(this.player);
@@ -175,10 +184,6 @@ Nivel1.prototype = {
 		}
 
 
-		//crear enemigos
-		this.enemigos = this.add.physicsGroup();
-		this.enemigos.enableBody = true;
-		//var enemigo = this.enemigos.create(100,game.world.height - (64+32),'enemigo');
 
 		this.pisos.setAll('body.allowGravity', false);
         this.pisos.setAll('body.immovable',true);
@@ -223,7 +228,7 @@ Nivel1.prototype = {
 	update: function(){
 		this.physics.arcade.collide(this.player,this.pisos);
 		this.physics.arcade.collide(this.enemigos,this.pisos);
-		this.physics.arcade.collide(this.player,this.enemigos,this.collectVida,null,this);
+		this.physics.arcade.collide(this.player,this.enemigo1,this.collectVida,null,this);
 		this.physics.arcade.collide(this.player,this.platforms)
 		this.physics.arcade.collide(this.player, this.bloques)
 		this.physics.arcade.overlap(this.player,this.obras,this.collectObras, null, this);
@@ -268,10 +273,31 @@ Nivel1.prototype = {
     	//console.log("x: " + this.player.x + " y: " + this.player.y);
     	//Reiniciar el juego si se cae en un precipicio
     	if(this.player.x > 800 && this.player.x < 1000 && this.player.y > 500 || this.player.x > 2320 && this.player.x < 2570 && this.player.y > 500 ){
-    		this.player.destroy();
     		this.state.start('Nivel1');
+    		//this.player.destroy();
     	}
 
+    	//Movimiento de las bombas
+    	if(this.enemigo1.x > 570){
+    		this.enemigo1.body.velocity.x *= -1;
+    		this.enemigo1.x += -1;
+    	}
+    	if(this.enemigo1.x < 410){
+    		this.enemigo1.body.velocity.x *= -1;
+    		this.enemigo1.x += 1;
+
+    	}
+
+    	//Movimiento de las bombas
+    	if(this.enemigo2.x > 2867){
+    		this.enemigo2.body.velocity.x *= -1;
+    		this.enemigo2.x += -1;
+    	}
+    	if(this.enemigo2.x < 2700){
+    		this.enemigo2.body.velocity.x *= -1;
+    		this.enemigo2.x += 1;
+
+    	}
 
     	//Movimiento  del jugador con el teclado
     	if(leftKey.isDown){
@@ -286,6 +312,7 @@ Nivel1.prototype = {
     		if(this.viendo !== 'left'){
     			this.viendo = 'left';
     		}
+
     	}else if (right.isDown){
     		this.player.body.velocity.x = 250;
     		this.player.play('right');
