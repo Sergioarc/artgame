@@ -142,8 +142,10 @@ Nivel1.prototype = {
 		this.enemigos = this.add.physicsGroup()
 		this.enemigo1 = this.enemigos.create(450,470,'bomba')
 		this.enemigo2 = this.enemigos.create(2850,470,'bomba')
+		this.enemigo3 = this.enemigos.create(1400,470,'bomba')
 		this.enemigo1.body.velocity.x = 50;
 		this.enemigo2.body.velocity.x = 50;
+		this.enemigo3.body.velocity.x = 50;
 
 
 
@@ -199,15 +201,19 @@ Nivel1.prototype = {
 
 	collectVida: function(player, enemigos){
     	console.log("Hola");
+    	enemigos.destroy()
     	this.vidas -= 1;
-    	if(this.vidas == 1){
+    	console.log(this.vidas)
+    	if(this.vidas == 2){
     		this.corazon1.destroy();
     	}
-    	if(this.vidas == -1 ){
+    	if(this.vidas == 1){
     		this.corazon2.destroy();
     	}
-    	if(this.vidas == -3){
+    	if(this.vidas == 0){
+    		
     		this.corazon3.destroy();
+    		this.state.start('Nivel1');
     	}
     	console.log(this.vidas);
     },
@@ -219,7 +225,6 @@ Nivel1.prototype = {
     },
 
     finJuego: function(player, bandera){
-    	//window.location ="http://www.google.com";
     	console.log(player.x)
     	if(player.x > 2920)
     		this.state.start('GameWin');
@@ -229,6 +234,8 @@ Nivel1.prototype = {
 		this.physics.arcade.collide(this.player,this.pisos);
 		this.physics.arcade.collide(this.enemigos,this.pisos);
 		this.physics.arcade.collide(this.player,this.enemigo1,this.collectVida,null,this);
+		this.physics.arcade.collide(this.player,this.enemigo2,this.collectVida,null,this);
+		this.physics.arcade.collide(this.player,this.enemigo3,this.collectVida,null,this);
 		this.physics.arcade.collide(this.player,this.platforms)
 		this.physics.arcade.collide(this.player, this.bloques)
 		this.physics.arcade.overlap(this.player,this.obras,this.collectObras, null, this);
@@ -299,6 +306,17 @@ Nivel1.prototype = {
 
     	}
 
+    	//Movimiento de las bombas
+    	if(this.enemigo3.x > 1400){
+    		this.enemigo3.body.velocity.x *= -1;
+    		this.enemigo3.x += -1;
+    	}
+    	if(this.enemigo3.x < 1100){
+    		this.enemigo3.body.velocity.x *= -1;
+    		this.enemigo3.x += 1;
+
+    	}
+
     	//Movimiento  del jugador con el teclado
     	if(leftKey.isDown){
     		this.player.body.velocity.x = -250;
@@ -339,6 +357,8 @@ Nivel1.prototype = {
     		this.jumpTimer = this.time.time +750;
     		
     	}
+
+    	
 
     	this.wasStanding = standing;
     }
