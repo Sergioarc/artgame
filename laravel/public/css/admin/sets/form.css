@@ -1,0 +1,16 @@
+#btn-add-file {
+  min-height: 200px;
+  padding-top: 40%;
+  text-decoration: none; }
+
+.set-item-container > .thumbnail, .set-item-container#btn-add-item {
+  min-height: 100px;
+  padding-top: 20%;
+  text-decoration: none;
+  text-align: center; }
+
+.set-item-container .close {
+  padding-right: 7px;
+  padding-top: 4px; }
+
+/*# sourceMappingURL=form.css.map */
