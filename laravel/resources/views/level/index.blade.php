@@ -21,7 +21,7 @@
             <tr>
                 <td>
                     Nivel 1<br>
-                    <a href="#">
+                    <a href="Ecoambient.html" target="_blank">
                         {!!Html::image("img/welcome/01.jpg", null, ['class' => 'img-responsive'])!!}
                     </a>
                 </td>
@@ -32,7 +32,7 @@
                         {!!Html::image("img/welcome/03.jpg", null, ['class' => 'img-responsive','style' => 'opacity:0.1'])!!}
                     </a>              
                     @else
-                    <a href="{{action('LevelsController@create')}}">
+                    <a href="Arquileza.html" target="_blank">
                         {!!Html::image("img/welcome/03.jpg", null, ['class' => 'img-responsive'])!!}
                     </a>
                     @endif
