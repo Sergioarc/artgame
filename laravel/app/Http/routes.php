@@ -13,7 +13,9 @@
 
 
 Route::resource('abrir-nivel','LevelsController');
-   
+
+Route::resource('fotografias','BookController');   
+
 Route::group([
         'namespace' => 'Admin',
         'prefix' => 'admin',

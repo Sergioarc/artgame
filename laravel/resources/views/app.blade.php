@@ -67,10 +67,28 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="/home">
+                                            Inicio
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{action('Auth\AuthController@getProfile')}}">
                                             Mi perfil
                                         </a>
                                     </li>
+                                    <li>
+                                          <a href="{{action('LevelsController@index')}}">
+                                            Libro de videojuegos
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                    <a href="{{action('BookController@index')}}">
+                                        Mis fotografias
+                                    </a>
+
+                                    </li>
+                                    
                                 @endif
                                 <li>
                                     <a href="{{action('Auth\AuthController@getLogout')}}">

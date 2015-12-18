@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Level;
 use App\Http\Controllers\Controller;
 
-use Auth;
-
-class LevelsController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,9 @@ class LevelsController extends Controller
      */
     public function index()
     {
-        return view('level.index'); 
+        $books = \Auth::user()->levels;
+
+        return view('books.index')->withBooks($books);
     }
 
     /**
@@ -28,7 +27,7 @@ class LevelsController extends Controller
      */
     public function create()
     {
-        return view('level.create'); 
+        //
     }
 
     /**
@@ -39,20 +38,7 @@ class LevelsController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        \Log::info($user);
-        $all = $request->all();
-        $all['user_id'] = $user->id;
-        $level = new Level($all);
-
-        if($level->save()){
-            $user->level_unblocked = true;
-            $user->save();
-            return view('level.index')->withSuccess("El nivel se ha habierto con exito"); 
-        }else{
-            return view("level.index")->withSuccess("Error al cargar la foto");
-        }
-            
+        //
     }
 
     /**
@@ -99,5 +85,4 @@ class LevelsController extends Controller
     {
         //
     }
-        
 }

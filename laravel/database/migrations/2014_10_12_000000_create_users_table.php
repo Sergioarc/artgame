@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('town', 40)->nullable();
             $table->string('estate', 40)->nullable();
             $table->string('zip_code', 5)->nullable();
-            $table->boolean('level_unblocked')->default("false");
+            $table->boolean('level_unblocked')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

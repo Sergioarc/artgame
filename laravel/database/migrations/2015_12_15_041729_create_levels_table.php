@@ -18,9 +18,9 @@ class CreateLevelsTable extends Migration
             $table->integer("user_id")->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->string('photo_file_name')->nullable();
-            $table->string('photo_file_size')->nullable();
+            $table->integer('photo_file_size')->nullable();
             $table->string('photo_content_type')->nullable();
-            $table->timestamp('photo_updated_at');  
+            $table->timestamp('photo_updated_at')->nullable();
             $table->timestamps();
 
         });
@@ -33,6 +33,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::drop("level");
+        Schema::drop("levels");
     }
 }

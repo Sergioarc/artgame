@@ -50,4 +50,13 @@ class User extends \Illuminate\Database\Eloquent\Model implements Authenticatabl
         return $this->hasMany('App\Order');
     }
 
+    public function levels()
+    {
+        return $this->hasMany('App\Level');
+    }
+
+    public function getNameAttribute(){
+        return $this->first_name. " ". $this->last_name;
+    }
+
 }
