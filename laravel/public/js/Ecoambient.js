@@ -69,7 +69,7 @@ Nivel2.prototype = {
 		obra = this.obras.create(2200,300,'arqui2');
 		obra = this.obras.create(1710,311,'arqui3' );
 		obra = this.obras.create(492,150,'arqui4');
-		obra = this.obras.create(2699,350,'arqui5');
+		obra = this.obras.create(2699,380,'arqui5');
 		this.obras.setAll('body.allowGravity', false);
 		this.obras.setAll('body.immovable',true);
 
@@ -128,6 +128,7 @@ Nivel2.prototype = {
 		this.player.body.collideWorldBounds = true; //Asignamos coliciones con los objetos que pongamos del mundo
 		this.player.animations.add('left',[0,1,2,3],10,true);
 		this.player.animations.add('right',[5,6,7,8],10,true);
+		this.player.body.setSize(19,32,5,16);
 
 		//Creamos las plataformas
 		this.platforms = this.add.physicsGroup();
@@ -177,17 +178,22 @@ Nivel2.prototype = {
 		this.corazones = this.add.physicsGroup();
 		this.corazones.enableBody = true;
 		for (var i = 0; i < 3; i++) {
-			if(i === 0)
+			if(i === 0){
 				this.corazon1 = this.corazones.create(730+posicionCora,10,'corazon');
-			if(i === 1)
+				this.corazon1.fixedToCamera = true;
+			}
+			if(i === 1){
 				this.corazon2 = this.corazones.create(730+posicionCora,10,'corazon');
-			if(i === 2)
+				this.corazon2.fixedToCamera = true;
+			}
+			if(i === 2){
 				this.corazon3 = this.corazones.create(730+posicionCora,10,'corazon');
+				this.corazon3.fixedToCamera = true;	
+			}
 			posicionCora += 45;
 			vidasCount += 1;	
 		}
-
-
+		
 
 		this.pisos.setAll('body.allowGravity', false);
         this.pisos.setAll('body.immovable',true);
@@ -196,7 +202,7 @@ Nivel2.prototype = {
         this.enemigos.setAll('body.immovable',true);
 
         this.scoreText = game.add.text(12,12,'Obras: 0',{fontSize: '30px', fill: '#0000'})
-
+        this.scoreText.fixedToCamera = true;
 
 
 	},
@@ -243,7 +249,7 @@ Nivel2.prototype = {
 		this.physics.arcade.overlap(this.player,this.obras,this.collectObras, null, this);
 		this.physics.arcade.overlap(this.player,this.bandera,this.finJuego,null,this);
 
-		var standing = this.player.body.blocked.down || this.player.body.touching;
+		var standing = this.player.body.blocked.down || this.player.body.touching.down;
 		var viendo;
 		
 		//console.log("Plat: " + this.platform1.x)

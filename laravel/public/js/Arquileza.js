@@ -125,6 +125,7 @@ Nivel1.prototype = {
 		this.player.body.collideWorldBounds = true; //Asignamos coliciones con los objetos que pongamos del mundo
 		this.player.animations.add('left',[0,1,2,3],10,true);
 		this.player.animations.add('right',[5,6,7,8],10,true);
+		this.player.body.setSize(19,32,5,16);
 
 		//Creamos las plataformas
 		this.platforms = this.add.physicsGroup();
@@ -174,16 +175,21 @@ Nivel1.prototype = {
 		this.corazones = this.add.physicsGroup();
 		this.corazones.enableBody = true;
 		for (var i = 0; i < 3; i++) {
-			if(i === 0)
-				this.corazon1 = this.corazones.create(730+posicionCora,10,'corazon');
-			if(i === 1)
-				this.corazon2 = this.corazones.create(730+posicionCora,10,'corazon');
-			if(i === 2)
-				this.corazon3 = this.corazones.create(730+posicionCora,10,'corazon');
+			if(i === 0){
+				this.corazon1 = this.corazones.create(650+posicionCora,10,'corazon');
+				this.corazon1.fixedToCamera = true;	
+			}
+			if(i === 1){
+				this.corazon2 = this.corazones.create(652+posicionCora,10,'corazon');
+				this.corazon2.fixedToCamera = true;
+			}
+			if(i === 2){
+				this.corazon3 = this.corazones.create(654+posicionCora,10,'corazon');
+				this.corazon3.fixedToCamera = true;
+			}
 			posicionCora += 45;
 			vidasCount += 1;	
 		}
-
 
 
 		this.pisos.setAll('body.allowGravity', false);
@@ -193,7 +199,7 @@ Nivel1.prototype = {
         this.enemigos.setAll('body.immovable',true);
 
         this.scoreText = game.add.text(12,12,'Obras: 0',{fontSize: '30px', fill: '#C66E4E'})
-
+        this.scoreText.fixedToCamera = true;
 
 
 	},
@@ -240,7 +246,7 @@ Nivel1.prototype = {
 		this.physics.arcade.overlap(this.player,this.obras,this.collectObras, null, this);
 		this.physics.arcade.overlap(this.player,this.bandera,this.finJuego,null,this);
 
-		var standing = this.player.body.blocked.down || this.player.body.touching;
+		var standing = this.player.body.blocked.down || this.player.body.touching.down;
 		var viendo;
 		
 		//console.log("Plat: " + this.platform1.x)
