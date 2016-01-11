@@ -3,7 +3,7 @@
 
 <div class="container">
 	 <center>
-        <h1>Libro de videojuegos</h1>
+        <h1>Pasaporte del arte</h1>
     <center>
      <p style="font-size:30px">Para abrir un nuevo juego da click sobre la imagen del nivel.</p>
                    

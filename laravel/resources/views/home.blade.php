@@ -16,7 +16,7 @@
         {!! Html::image('img/inicio.jpg', 'Noir', ['class' => 'img-responsive', 'style' => 'display : inline;']) !!}
     </div>
     <center>
-        <h1>Difundiendo la cultura</h1><br>
+        <h1>El juego en el arte</h1><br>
         <h6>Luis Sanguino.<br>
                     Fuente de la vida. 1984<br>
                     Macroplaza. Monterrey, Nuevo León.<br>

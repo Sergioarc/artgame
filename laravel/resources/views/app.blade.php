@@ -78,7 +78,7 @@
                                     </li>
                                     <li>
                                           <a href="{{action('LevelsController@index')}}">
-                                            Libro de videojuegos
+                                           Pasaporte del arte
                                         </a>
 
                                     </li>
